@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=320, height=240, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#ffdad6",
+                    "inverse-on-surface": "#2d3037",
+                    "outline-variant": "#414753",
+                    "primary": "#abc7ff",
+                    "secondary-container": "#18a659",
+                    "secondary": "#61de8a",
+                    "error-container": "#93000a",
+                    "on-tertiary": "#512400",
+                    "surface-dim": "#10131a",
+                    "tertiary-container": "#e07316",
+                    "background": "#0D1117",
+                    "primary-fixed-dim": "#abc7ff",
+                    "on-surface-variant": "#c1c6d5",
+                    "surface-container-high": "#272a31",
+                    "on-tertiary-fixed": "#311300",
+                    "tertiary-fixed": "#ffdbc7",
+                    "on-primary": "#002f65",
+                    "tertiary-fixed-dim": "#ffb688",
+                    "surface-variant": "#32353c",
+                    "surface-container-lowest": "#0b0e15",
+                    "on-background": "#e0e2eb",
+                    "secondary-fixed": "#7efba4",
+                    "inverse-primary": "#005cba",
+                    "primary-container": "#448ffd",
+                    "on-tertiary-container": "#471f00",
+                    "surface-tint": "#abc7ff",
+                    "on-primary-fixed-variant": "#00458e",
+                    "tertiary": "#ffb688",
+                    "secondary-fixed-dim": "#61de8a",
+                    "on-secondary-container": "#003115",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed-variant": "#005228",
+                    "surface-bright": "#363940",
+                    "on-secondary": "#00391a",
+                    "inverse-surface": "#e0e2eb",
+                    "surface-container-low": "#191c22",
+                    "surface": "#10131a",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8b919f",
+                    "surface-container": "#1d2026",
+                    "on-surface": "#e0e2eb",
+                    "primary-fixed": "#d7e3ff",
+                    "on-primary-fixed": "#001b3f",
+                    "on-error": "#690005",
+                    "on-primary-container": "#002959",
+                    "on-secondary-fixed": "#00210c",
+                    "on-tertiary-fixed-variant": "#733600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin_edge": "12px",
+                    "grid_unit": "8px",
+                    "main_height": "190px",
+                    "header_height": "30px",
+                    "footer_height": "20px",
+                    "gutter": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Montserrat"],
+                    "display-speed": ["Montserrat"],
+                    "label-caps": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "headline-md": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "display-speed": ["48px", {"lineHeight": "48px", "letterSpacing": "-1px", "fontWeight": "700"}],
+                    "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "1px", "fontWeight": "700"}],
+                    "body-lg": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            width: 320px;
+            height: 240px;
+            margin: 0;
+            overflow: hidden;
+            background-color: #0D1117;
+            color: #F5F7FA;
+            user-select: none;
+        }
+
+        .main-canvas {
+            height: 190px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes pulse-blue {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.95); }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-blue 3s ease-in-out infinite;
+        }
+
+        .dot-pulse {
+            animation: pulse-blue 2s ease-in-out infinite;
+        }
+
+        .card-idle {
+            background-color: #161B22;
+            border: 1px solid #1E2630;
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+
+        .card-idle:active {
+            transform: scale(0.97);
+            background-color: #1E2630;
+        }
+    </style>
+</head>
+<body class="font-body-lg antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full h-[30px] border-b border-outline-variant flex justify-between items-center px-margin_edge bg-surface text-primary">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary dot-pulse" style="font-variation-settings: 'FILL' 1;">lens</span>
+<span class="font-label-caps text-label-caps text-primary">STATION-EV-042</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ONLINE</span>
+<span class="material-symbols-outlined text-[16px] text-primary">wifi</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="main-canvas mt-[30px]">
+<div class="card-idle w-full h-[166px] rounded-lg flex flex-col items-center justify-center cursor-pointer shadow-sm">
+<!-- Large Plug Icon -->
+<div class="mb-2 animate-pulse-slow">
+<span class="material-symbols-outlined text-[56px] text-primary" style="font-variation-settings: 'FILL' 1;">ev_station</span>
+</div>
+<!-- Ready Text -->
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight mb-1" style="font-size: 30px; line-height: 32px;">
+                READY
+            </h1>
+<!-- Tap Prompt -->
+<p class="font-body-sm text-body-sm text-on-surface-variant uppercase tracking-widest">
+                Tap card to begin
+            </p>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full h-[20px] flex justify-between items-center px-margin_edge bg-surface-container-lowest text-outline">
+<span class="font-label-caps text-label-caps">FW v2.4.1 | SYSTEM READY</span>
+<div class="flex items-center gap-1">
+<span class="font-label-caps text-label-caps text-secondary">SYNC ACTIVE</span>
+</div>
+</footer>
+<script>
+        // Simple touch interaction feedback
+        const card = document.querySelector('.card-idle');
+        card.addEventListener('click', () => {
+            card.style.borderColor = '#abc7ff';
+            setTimeout(() => {
+                card.style.borderColor = '#1E2630';
+            }, 300);
+        });
+    </script>
+</body></html>

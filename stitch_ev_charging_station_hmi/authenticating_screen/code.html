@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>STATION-EV-042 - Authenticating</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#ffdad6",
+                    "inverse-on-surface": "#2d3037",
+                    "outline-variant": "#414753",
+                    "primary": "#abc7ff",
+                    "secondary-container": "#18a659",
+                    "secondary": "#61de8a",
+                    "error-container": "#93000a",
+                    "on-tertiary": "#512400",
+                    "surface-dim": "#10131a",
+                    "tertiary-container": "#e07316",
+                    "background": "#0D1117",
+                    "primary-fixed-dim": "#abc7ff",
+                    "on-surface-variant": "#c1c6d5",
+                    "surface-container-high": "#272a31",
+                    "on-tertiary-fixed": "#311300",
+                    "tertiary-fixed": "#ffdbc7",
+                    "on-primary": "#002f65",
+                    "tertiary-fixed-dim": "#ffb688",
+                    "surface-variant": "#32353c",
+                    "surface-container-lowest": "#0b0e15",
+                    "on-background": "#e0e2eb",
+                    "secondary-fixed": "#7efba4",
+                    "inverse-primary": "#005cba",
+                    "primary-container": "#448ffd",
+                    "on-tertiary-container": "#471f00",
+                    "surface-tint": "#abc7ff",
+                    "on-primary-fixed-variant": "#00458e",
+                    "tertiary": "#ffb688",
+                    "secondary-fixed-dim": "#61de8a",
+                    "on-secondary-container": "#003115",
+                    "error": "#ffb4ab",
+                    "on-secondary": "#00391a",
+                    "inverse-surface": "#e0e2eb",
+                    "surface-container-low": "#191c22",
+                    "surface": "#10131a",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8b919f",
+                    "surface-container": "#1d2026",
+                    "on-surface": "#e0e2eb",
+                    "primary-fixed": "#d7e3ff",
+                    "on-primary-fixed": "#001b3f",
+                    "on-error": "#690005",
+                    "on-primary-container": "#002959",
+                    "on-secondary-fixed": "#00210c",
+                    "on-tertiary-fixed-variant": "#733600",
+                    "cyan-accent": "#56CCF2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin_edge": "12px",
+                    "grid_unit": "8px",
+                    "main_height": "190px",
+                    "header_height": "30px",
+                    "footer_height": "20px",
+                    "gutter": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Montserrat"],
+                    "display-speed": ["Montserrat"],
+                    "label-caps": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "headline-md": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "display-speed": ["48px", {"lineHeight": "48px", "letterSpacing": "-1px", "fontWeight": "700"}],
+                    "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "1px", "fontWeight": "700"}],
+                    "body-lg": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0D1117;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 320px;
+            height: 240px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .spinner-container {
+            position: relative;
+            width: 64px;
+            height: 64px;
+        }
+        
+        .spinner {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(86, 204, 242, 0.1);
+            border-top: 3px solid #56CCF2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .nfc-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #56CCF2;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-fill {
+            width: 80%;
+            animation: countdown 8s linear forwards;
+        }
+
+        @keyframes countdown {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #56CCF2, transparent);
+            top: 0;
+            animation: scan 2s ease-in-out infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-surface">
+<!-- TopAppBar (Based on Shared Components JSON) -->
+<header class="fixed top-0 w-full h-[30px] bg-surface dark:bg-surface border-b border-outline-variant flex justify-between items-center px-margin_edge z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-cyan-accent" data-icon="ev_station">ev_station</span>
+<span class="text-label-caps font-label-caps text-primary">STATION-EV-042</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-caps font-label-caps text-cyan-accent tracking-widest animate-pulse">CONNECTING</span>
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="wifi">wifi</span>
+</div>
+</header>
+<!-- Main Content Area (190px height) -->
+<main class="mt-[30px] h-[190px] flex flex-col items-center justify-center relative px-margin_edge overflow-hidden">
+<!-- Subtle Atmospheric Background -->
+<div class="absolute inset-0 opacity-10">
+
+</div>
+<!-- Central Interaction Cluster -->
+<div class="z-10 flex flex-col items-center gap-2">
+<div class="spinner-container">
+<div class="spinner"></div>
+<div class="nfc-icon">
+<span class="material-symbols-outlined text-[28px]" data-icon="contactless" style="font-variation-settings: 'FILL' 1;">contactless</span>
+</div>
+<div class="scan-line"></div>
+</div>
+<div class="text-center">
+<h1 class="text-headline-md font-headline-md text-on-surface uppercase tracking-tighter">AUTHENTICATING</h1>
+<p class="text-body-sm font-body-sm text-outline">Verifying account...</p>
+</div>
+</div>
+<!-- Timeout Progress Bar (Bottom of Main Area) -->
+<div class="absolute bottom-2 left-margin_edge right-margin_edge flex flex-col gap-1">
+<div class="flex justify-between items-center w-full px-1">
+<span class="text-label-caps font-label-caps text-outline uppercase">Handshake Status</span>
+<span class="text-label-caps font-label-caps text-cyan-accent" id="timer">Timeout in 08s</span>
+</div>
+<div class="h-[4px] w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-cyan-accent progress-fill rounded-full"></div>
+</div>
+</div>
+</main>
+<!-- Footer (Based on Shared Components JSON) -->
+<footer class="fixed bottom-0 w-full h-[20px] bg-surface-container-lowest dark:bg-surface-container-lowest flex justify-between items-center px-margin_edge">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-outline" data-icon="terminal">terminal</span>
+<span class="text-label-caps font-label-caps text-outline uppercase tracking-tight">System Identity: EVCS-NG-001</span>
+</div>
+<span class="text-label-caps font-label-caps text-outline">FW v2.4.1 | SYSTEM READY</span>
+</footer>
+<script>
+        // Simple countdown interaction
+        let timeLeft = 8;
+        const timerElement = document.getElementById('timer');
+        
+        const countdown = setInterval(() => {
+            timeLeft--;
+            if (timeLeft >= 0) {
+                timerElement.innerText = `Timeout in 0${timeLeft}s`;
+            } else {
+                clearInterval(countdown);
+                timerElement.innerText = "Reconnecting...";
+            }
+        }, 1000);
+
+        // Micro-interaction for haptic feedback simulation
+        document.body.addEventListener('touchstart', () => {
+            document.body.style.transform = 'scale(0.99)';
+            setTimeout(() => {
+                document.body.style.transform = 'scale(1)';
+            }, 50);
+        });
+    </script>
+</body></html>
