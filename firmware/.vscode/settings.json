@@ -13,5 +13,7 @@
     "--background-index",
     "--query-driver=**",
     "--compile-commands-dir=c:\\Users\\USER\\Desktop\\myproject\\EVSE\\firmware\\build"
-  ]
+  ],
+  "idf.flashType": "UART",
+  "idf.portWin": "COM4"
 }
