@@ -4,6 +4,8 @@
 #include "driver/gpio.h"
 #include "esp_log.h"
 
+#include "config.h"
+
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_ops.h"
 #include "esp_lcd_panel_vendor.h"
@@ -16,28 +18,9 @@
 #include "ui/ui.h"
 
 static const char *TAG = "EVSE";
-
-// ---- pin assignments ----
-#define SPI_HOST_USED  SPI3_HOST
-
-#define PIN_SCLK       18
-#define PIN_MOSI       23
-#define PIN_MISO       19
-
-#define PIN_LCD_CS     15
-#define PIN_LCD_DC     2
-#define PIN_LCD_RST    4
-#define PIN_BCKL       21
-
-#define PIN_TOUCH_CS   5
-#define PIN_TOUCH_IRQ  35
-
-#define LCD_H_RES      320
-#define LCD_V_RES      240
-
 static lv_disp_t *lvgl_disp_handle = NULL;
 
-
+// ************** display init ***************
 static void display_init(void)
 {
     ESP_LOGI(TAG, "Initializing SPI bus");
@@ -116,6 +99,8 @@ static void display_init(void)
     ESP_LOGI(TAG, "LVGL display initialized");
 }
 
+
+// ******************* touch init ******************
 static void touch_init(void)
 {
     ESP_LOGI(TAG, "Initializing XPT2046 touch");
@@ -148,6 +133,8 @@ static void touch_init(void)
     ESP_LOGI(TAG, "Touch connected to LVGL");
 }
 
+
+// ************************** MAIN *******************************
 void app_main(void)
 {
     display_init();
